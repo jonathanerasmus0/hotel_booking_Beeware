@@ -21,7 +21,7 @@ class HotelBooking(toga.App):
 
         # Welcome message
         welcome_label = toga.Label(
-            'Welcome to the Luxury Hotel Booking System!',
+            'Welcome to Jonathan Luxury Hotel Booking System!',
             style=Pack(padding=(20, 0), font_size=24, text_align=CENTER)
         )
 
