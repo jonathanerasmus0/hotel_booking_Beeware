@@ -1,4 +1,3 @@
-from datetime import datetime
 import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN, CENTER
@@ -16,12 +15,26 @@ class HotelBooking(toga.App):
         # Main layout container for the welcome page
         welcome_box = toga.Box(style=Pack(direction=COLUMN, padding=20, alignment=CENTER))
 
-        # Hotel image
-        hotel_image = toga.ImageView(toga.Image('resources/luxury_hotel.jpg'), style=Pack(height=300, width=400, padding=10))
+        # WebView to display the YouTube video with autoplay enabled
+        video_html = """
+            <html>
+            <body style="margin:0;">
+                <iframe width="680" height="383" 
+                src="https://www.youtube.com/embed/yC-X0vKLqTQ?autoplay=1" 
+                title="YouTube Video" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+                </iframe>
+            </body>
+            </html>
+        """
+        video_webview = toga.WebView(style=Pack(height=383, width=680))
+        video_webview.set_content(root_url="", content=video_html)
 
         # Welcome message
         welcome_label = toga.Label(
-            'Welcome to Jonathan Luxury Hotel Booking System!',
+            'Welcome to the Luxury Hotel Booking System!',
             style=Pack(padding=(20, 0), font_size=24, text_align=CENTER)
         )
 
@@ -30,7 +43,7 @@ class HotelBooking(toga.App):
             'Continue to Bookings', on_press=self.show_booking_interface, style=Pack(padding=10, background_color='#4CAF50', color='white')
         )
 
-        welcome_box.add(hotel_image)
+        welcome_box.add(video_webview)
         welcome_box.add(welcome_label)
         welcome_box.add(continue_button)
 
@@ -42,22 +55,22 @@ class HotelBooking(toga.App):
 
         # Header
         header_label = toga.Label(
-            'Hotel Booking System',
+            '🏨 Hotel Booking System',
             style=Pack(padding_bottom=20, font_size=24, text_align=CENTER)
         )
         main_box.add(header_label)
 
         # Room booking form
-        room_type_label = toga.Label('Room Type:', style=Pack(padding=(10, 0)))
+        room_type_label = toga.Label('🛏️ Room Type:', style=Pack(padding=(10, 0)))
         self.room_type_input = toga.Selection(
             items=['Single', 'Double', 'Suite'], style=Pack(flex=1)
         )
         self.room_type_input.on_select = self.update_room_image
 
-        check_in_label = toga.Label('Check-in Date (YYYY-MM-DD):', style=Pack(padding=(10, 0)))
+        check_in_label = toga.Label('📅 Check-in Date (YYYY-MM-DD):', style=Pack(padding=(10, 0)))
         self.check_in_input = toga.TextInput(placeholder="YYYY-MM-DD", style=Pack(flex=1))
 
-        check_out_label = toga.Label('Check-out Date (YYYY-MM-DD):', style=Pack(padding=(10, 0)))
+        check_out_label = toga.Label('📅 Check-out Date (YYYY-MM-DD):', style=Pack(padding=(10, 0)))
         self.check_out_input = toga.TextInput(placeholder="YYYY-MM-DD", style=Pack(flex=1))
 
         # Image area for the room preview
@@ -65,16 +78,16 @@ class HotelBooking(toga.App):
         self.update_room_image()
 
         # User details form
-        name_label = toga.Label('Full Name:', style=Pack(padding=(10, 0)))
+        name_label = toga.Label('👤 Full Name:', style=Pack(padding=(10, 0)))
         self.name_input = toga.TextInput(placeholder="Your Full Name", style=Pack(flex=1))
 
-        email_label = toga.Label('Email:', style=Pack(padding=(10, 0)))
+        email_label = toga.Label('📧 Email:', style=Pack(padding=(10, 0)))
         self.email_input = toga.TextInput(placeholder="Your Email", style=Pack(flex=1))
 
-        credit_card_label = toga.Label('Credit Card Number:', style=Pack(padding=(10, 0)))
+        credit_card_label = toga.Label('💳 Credit Card Number:', style=Pack(padding=(10, 0)))
         self.credit_card_input = toga.TextInput(placeholder="Credit Card Number", style=Pack(flex=1))
 
-        cvv_label = toga.Label('CVV:', style=Pack(padding=(10, 0)))
+        cvv_label = toga.Label('🔒 CVV:', style=Pack(padding=(10, 0)))
         self.cvv_input = toga.TextInput(placeholder="CVV", style=Pack(flex=1))
 
         # Button for booking
