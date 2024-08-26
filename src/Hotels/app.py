@@ -21,7 +21,7 @@ class HotelBooking(toga.App):
 
         # Welcome message
         welcome_label = toga.Label(
-            'Welcome to Jonathan Luxury Hotels!',
+            'Welcome to the Luxury Hotel Booking System!',
             style=Pack(padding=(20, 0), font_size=24, text_align=CENTER)
         )
 
@@ -103,7 +103,10 @@ class HotelBooking(toga.App):
 
         form_box.add(self.book_button)
 
-        main_box.add(form_box)
+        # Wrap the form in a ScrollContainer to enable scrolling
+        scroll_container = toga.ScrollContainer(content=form_box, style=Pack(flex=1))
+
+        main_box.add(scroll_container)
 
         self.main_window.content = main_box
 
@@ -151,8 +154,9 @@ class HotelBooking(toga.App):
             if not credit_card.isdigit() or len(credit_card) not in [13, 16]:
                 raise ValueError("Invalid credit card number.")
             if not cvv.isdigit() or len(cvv) != 3:
-                raise ValueError("Invalid CVV.")
+                raise ValueError("CVV must be exactly 3 digits.")
 
+            # Display the confirmation message and return to home page
             self.show_confirmation_dialog(room_type, check_in, check_out, name, email, total_price)
             
         except ValueError as e:
@@ -160,15 +164,19 @@ class HotelBooking(toga.App):
 
     def show_confirmation_dialog(self, room_type, check_in, check_out, name, email, total_price):
         confirmation_message = (
-            f"Booking confirmed!\n\n"
+            f"Your reservation has been confirmed!\n\n"
             f"Name: {name}\n"
             f"Email: {email}\n"
             f"Room Type: {room_type}\n"
             f"Check-in: {check_in}\n"
             f"Check-out: {check_out}\n"
-            f"Total Price: ${total_price}"
+            f"Total Price: ${total_price}\n\n"
+            f"An email will be sent as confirmation. Thank you for your custom!"
         )
         self.main_window.info_dialog('Booking Confirmed', confirmation_message)
+
+        # Return to the welcome page after confirmation
+        self.show_welcome_page()
 
 def main():
     return HotelBooking()
