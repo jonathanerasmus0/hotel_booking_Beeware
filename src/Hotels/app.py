@@ -1,4 +1,7 @@
 import datetime  # Import the datetime module
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN, CENTER
@@ -170,11 +173,53 @@ class HotelBooking(toga.App):
             if not cvv.isdigit() or len(cvv) != 3:
                 raise ValueError("CVV must be exactly 3 digits.")
 
-            # Display the confirmation message and return to home page
-            self.show_confirmation_dialog(room_type, check_in, check_out, name, email, total_price)
+            # Send confirmation email
+            if self.send_confirmation_email(name, email, room_type, check_in, check_out, total_price):
+                self.show_confirmation_dialog(room_type, check_in, check_out, name, email, total_price)
+            else:
+                self.main_window.error_dialog('Email Error', 'There was an error sending the confirmation email. Please try again.')
             
         except ValueError as e:
             self.main_window.error_dialog('Invalid Input', str(e))
+
+    def send_confirmation_email(self, name, email, room_type, check_in, check_out, total_price):
+        # Set up the email details
+        sender_email = "jonathanerasmusdavies43@gmail.com"
+        sender_password = "fgbz yptt obkt hphr"  # Use an app-specific password if 2FA is enabled
+        subject = "Booking Confirmation"
+        body = f"""
+        Dear {name},
+
+        Your booking for a {room_type} room has been confirmed.
+
+        Check-in Date: {check_in}
+        Check-out Date: {check_out}
+        Total Price: ${total_price}
+
+        Thank you for choosing our hotel!
+
+        Best regards,
+        Hotel Booking System
+        """
+
+        # Create the email
+        msg = MIMEMultipart()
+        msg['From'] = sender_email
+        msg['To'] = email
+        msg['Subject'] = subject
+        msg.attach(MIMEText(body, 'plain'))
+
+        # Send the email
+        try:
+            with smtplib.SMTP('smtp.gmail.com', 587) as server:
+                server.starttls()  # Secure the connection
+                server.login(sender_email, sender_password)
+                server.send_message(msg)
+            print("Email sent successfully")
+            return True
+        except Exception as e:
+            print(f"Failed to send email: {e}")
+            return False
 
     def show_confirmation_dialog(self, room_type, check_in, check_out, name, email, total_price):
         confirmation_message = (

@@ -75,3 +75,8 @@ briefcase package Android
 
 
 https://docs.beeware.org/en/latest/tutorial/tutorial-0.html
+
+
+to cleAR build
+rm -rf build/
+rm -rf dist/
