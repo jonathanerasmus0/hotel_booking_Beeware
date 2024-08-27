@@ -1,3 +1,4 @@
+import datetime  # Import the datetime module
 import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN, CENTER
@@ -154,8 +155,8 @@ class HotelBooking(toga.App):
         }
 
         try:
-            check_in_date = datetime.strptime(check_in, "%Y-%m-%d")
-            check_out_date = datetime.strptime(check_out, "%Y-%m-%d")
+            check_in_date = datetime.datetime.strptime(check_in, "%Y-%m-%d")
+            check_out_date = datetime.datetime.strptime(check_out, "%Y-%m-%d")
             if check_in_date >= check_out_date:
                 raise ValueError("Check-out date must be after check-in date.")
 
