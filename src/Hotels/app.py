@@ -185,7 +185,7 @@ class HotelBooking(toga.App):
     def send_confirmation_email(self, name, email, room_type, check_in, check_out, total_price):
         # Set up the email details
         sender_email = "eslrecruitonline@gmail.com"
-        sender_password = "fgbz yptt obkt hphr" 
+        sender_password = "fgbz yptt obkt hphr"  # Use an app-specific password if 2FA is enabled
         subject = "Booking Confirmation"
         body = f"""
         Dear {name},

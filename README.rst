@@ -80,3 +80,5 @@ https://docs.beeware.org/en/latest/tutorial/tutorial-0.html
 to cleAR build
 rm -rf build/
 rm -rf dist/
+sender_email = "eslrecruitonline@gmail.com"
+        sender_password = "fgbz yptt obkt hphr" 
