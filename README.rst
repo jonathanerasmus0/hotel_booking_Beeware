@@ -10,3 +10,68 @@ my hotel booking
 .. _`Briefcase`: https://briefcase.readthedocs.io/
 .. _`The BeeWare Project`: https://beeware.org/
 .. _`becoming a financial member of BeeWare`: https://beeware.org/contributing/membership
+# Hotel Booking System
+
+Welcome to the Hotel Booking System! This application allows users to book rooms, select check-in and check-out dates, and receive confirmation for their reservations. The app is built using the Toga framework, which is part of the BeeWare suite of tools.
+
+## Features
+
+- **Room Booking**: Users can choose between Single, Double, and Suite rooms.
+- **Date Selection**: Users can select their check-in and check-out dates.
+- **User Details**: Enter full name, email, credit card details, and CVV to confirm the booking.
+- **Confirmation**: After booking, users will receive a confirmation message, and an email will be sent.
+
+## Installation
+
+### Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Python 3.8+**: [Download Python](https://www.python.org/downloads/)
+- **pip**: Python's package installer. It comes with Python, but you can verify by running `pip --version` in your terminal.
+- **BeeWare Briefcase**: To package and deploy the app on various platforms.
+
+Install BeeWare Briefcase with:
+
+```bash
+pip install briefcase
+
+
+git clone <your-repository-url>
+cd hotel-booking-system
+
+python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+
+pip install -r requirements.txt
+
+python -m hotel_booking
+\briefcase build macOS
+briefcase package macOS
+Windows
+
+bash
+Copy code
+briefcase build Windows
+briefcase package Windows
+Linux
+
+bash
+Copy code
+briefcase build Linux
+briefcase package Linux
+iOS
+
+bash
+Copy code
+briefcase build iOS
+briefcase package iOS
+Android
+
+bash
+Copy code
+briefcase build Android
+briefcase package Android
+
+
+https://docs.beeware.org/en/latest/tutorial/tutorial-0.html
